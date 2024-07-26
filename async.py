@@ -3,6 +3,7 @@ import asyncio
 from bs4 import BeautifulSoup
 import ssl
 import time
+import random
 from aiohttp import ClientTimeout
 
 # Bypass bot detection
@@ -19,20 +20,33 @@ company_urls = [
 ]*100
 
 # Retry configuration
-RETRY_LIMIT = 3
-RETRY_DELAY = 2  # seconds
+RETRY_LIMIT = 5
+INITIAL_RETRY_DELAY = 5  # seconds
+MAX_RETRY_DELAY = 60  # seconds
 
 async def fetch(url, session, semaphore):
     async with semaphore:
+        retry_delay = INITIAL_RETRY_DELAY
         for attempt in range(RETRY_LIMIT):
             try:
                 async with session.get(url) as response:
-                    response.raise_for_status()  # Raise an error for bad HTTP status codes
-                    return await response.text()
+                    if response.status == 429:
+                        # Handle rate limiting
+                        retry_after = response.headers.get('Retry-After')
+                        if retry_after:
+                            retry_delay = int(retry_after)
+                        else:
+                            retry_delay = min(retry_delay * 2, MAX_RETRY_DELAY)
+                        print(f"Rate limit exceeded for {url}. Retrying in {retry_delay} seconds.")
+                        await asyncio.sleep(retry_delay)
+                    else:
+                        response.raise_for_status()  # Raise an error for bad HTTP status codes
+                        return await response.text()
             except Exception as e:
                 if attempt < RETRY_LIMIT - 1:
-                    print(f"Retrying {url} due to error: {e}")
-                    await asyncio.sleep(RETRY_DELAY)
+                    retry_delay = min(retry_delay * 2, MAX_RETRY_DELAY)
+                    print(f"Retrying {url} due to error: {e}. Retrying in {retry_delay} seconds.")
+                    await asyncio.sleep(retry_delay + random.uniform(0, 1))  # Add a small random delay
                 else:
                     print(f"Failed to fetch {url} after {RETRY_LIMIT} attempts: {e}")
                     return None
@@ -65,7 +79,7 @@ async def main():
     ssl_context.verify_mode = ssl.CERT_NONE
     
     timeout = ClientTimeout(total=60)
-    semaphore = asyncio.Semaphore(10)  # Limit concurrency here
+    semaphore = asyncio.Semaphore(5)  # Adjust based on server tolerance
 
     async with aiohttp.ClientSession(headers=HEADERS, connector=aiohttp.TCPConnector(ssl=ssl_context), timeout=timeout) as session:
         tasks = [scrape_headcount(url, session, semaphore) for url in company_urls]
