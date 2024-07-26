@@ -4,13 +4,12 @@ import pandas as pd
 import time
 
 proxies_list = [
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29b:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29c:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29d:ji6ncxkd45q9@proxy.oculus-proxy.com:31111",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29e:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29f:ji6ncxkd45q9@proxy.oculus-proxy.com:31113"
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ac:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ad:ji6ncxkd45q9@proxy.oculus-proxy.com:31111",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ae:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593af:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593b0:ji6ncxkd45q9@proxy.oculus-proxy.com:31114"
 ]
-
 
 def get_proxy(index):
     return proxies_list[index % len(proxies_list)]
