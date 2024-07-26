@@ -79,5 +79,6 @@ async def main():
         results = await asyncio.gather(*tasks)
         print(results)
 
-# Run the main function
-asyncio.run(main())
+# Run the main function within the event loop
+if __name__ == "__main__":
+    asyncio.run(main())
