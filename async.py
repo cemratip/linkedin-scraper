@@ -14,11 +14,11 @@ HEADERS = {
 
 # List of proxies with authentication
 proxies_list = [
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ac:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ad:ji6ncxkd45q9@proxy.oculus-proxy.com:31111",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593ae:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593af:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-593b0:ji6ncxkd45q9@proxy.oculus-proxy.com:31114"
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba08:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba09:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0a:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0b:ji6ncxkd45q9@proxy.oculus-proxy.com:31111",
+    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0c:ji6ncxkd45q9@proxy.oculus-proxy.com:31112"
 ]
 
 company_urls = [
