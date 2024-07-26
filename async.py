@@ -13,7 +13,7 @@ HEADERS = {
 }
 
 # List of proxies with authentication
-proxies_list = [
+proxies = [
     "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba08:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
     "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba09:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
     "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0a:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
