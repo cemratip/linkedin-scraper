@@ -20,7 +20,7 @@ company_urls = [
 
 # Retry configuration
 RETRY_LIMIT = 5
-INITIAL_RETRY_DELAY = 5  # seconds
+INITIAL_RETRY_DELAY = 1  # seconds
 MAX_RETRY_DELAY = 60  # seconds
 
 async def fetch(url, session, semaphore):
