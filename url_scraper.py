@@ -4,11 +4,15 @@ import pandas as pd
 import time
 
 proxies_list = [
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba08:ji6ncxkd45q9@proxy.oculus-proxy.com:31112",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba09:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0a:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0b:ji6ncxkd45q9@proxy.oculus-proxy.com:31111",
-    "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-6ba0c:ji6ncxkd45q9@proxy.oculus-proxy.com:31112"
+    "http://aqroajvb:nidjeys54j7g@207.244.217.165:6712",
+    "http://aqroajvb:nidjeys54j7g@134.73.69.7:5997",
+    "http://aqroajvb:nidjeys54j7g@64.64.118.149:6732",
+    "http://aqroajvb:nidjeys54j7g@157.52.253.244:6204",
+    "http://aqroajvb:nidjeys54j7g@167.160.180.203:6754",
+    "http://aqroajvb:nidjeys54j7g@166.88.58.10:5735",
+    "http://aqroajvb:nidjeys54j7g@173.0.9.70:5653",
+    "http://aqroajvb:nidjeys54j7g@204.44.69.89:6342",
+    "http://aqroajvb:nidjeys54j7g@173.0.9.209:5792"
 ]
 
 def get_proxy(index):
