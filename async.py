@@ -12,7 +12,7 @@ HEADERS = {
     'Referer': 'https://www.google.com/'
 }
 
-# List of proxies
+# List of proxies with authentication
 proxies = [
     "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29b:ji6ncxkd45q9@proxy.oculus-proxy.com:31113",
     "http://ba13396172373555b0b863c3af19140f1c50faec8d488802c91af43e969e797d015ab7eda42fcc9e52c91f64a3c28ca3-country-se-const-session-aa29c:ji6ncxkd45q9@proxy.oculus-proxy.com:31114",
@@ -77,22 +77,28 @@ async def fetch(url, session, semaphore):
 async def scrape_headcount(url, session, semaphore):
     print(f"Fetching {url}")
     start_time = time.time()
-    html_content = await fetch(url, session, semaphore)
+    for attempt in range(RETRY_LIMIT):
+        html_content = await fetch(url, session, semaphore)
 
-    if html_content:
-        try:
-            soup = BeautifulSoup(html_content, 'html.parser')
-            element = soup.select_one(
-                'main section:nth-of-type(1) section div div:nth-of-type(2) div:nth-of-type(2) ul li div a')
-            headcount = element.text if element else 'N/A'
-            headcount = headcount.replace('View all ', '').replace(' employees', '').replace('View ', '').replace(
-                ' employee', '')
-            print(headcount)
-        except Exception as e:
-            print(f"Error parsing {url}: {e}")
+        if html_content:
+            try:
+                soup = BeautifulSoup(html_content, 'html.parser')
+                element = soup.select_one(
+                    'main section:nth-of-type(1) section div div:nth-of-type(2) div:nth-of-type(2) ul li div a')
+                headcount = element.text if element else 'N/A'
+                headcount = headcount.replace('View all ', '').replace(' employees', '').replace('View ', '').replace(
+                    ' employee', '')
+                if headcount != 'N/A':
+                    break
+                else:
+                    print(f"Headcount is N/A for {url}. Retrying...")
+            except Exception as e:
+                print(f"Error parsing {url}: {e}")
+                headcount = 'N/A'
+        else:
             headcount = 'N/A'
-    else:
-        headcount = 'N/A'
+
+        await asyncio.sleep(INITIAL_RETRY_DELAY + random.uniform(0, 1))
 
     end_time = time.time()
     print(f"Time taken for {url}: {end_time - start_time} seconds")
@@ -112,6 +118,9 @@ async def main():
         tasks = [scrape_headcount(url, session, semaphore) for url in company_urls]
         results = await asyncio.gather(*tasks)
         print(results)
+        print(len(company_urls))
+        print(i for i in results if i != 'N/A')
+        print(i for i in results if i == 'N/A')
 
 
 # Run the main function within the event loop
