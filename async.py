@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import ssl
 import time
 from aiohttp import ClientTimeout
-from asyncio import Semaphore
 
 # Bypass bot detection
 HEADERS = {
@@ -16,18 +15,15 @@ company_urls = [
     'https://www.linkedin.com/company/slate-capital-group/',
     'https://www.linkedin.com/company/askmariatodd/',
     'https://www.linkedin.com/company/arkoma/'
+    # Add all your URLs here
 ]*100
-
-# Limit concurrency
-CONCURRENT_REQUESTS = 10
-SEMAPHORE = Semaphore(CONCURRENT_REQUESTS)
 
 # Retry configuration
 RETRY_LIMIT = 3
 RETRY_DELAY = 2  # seconds
 
-async def fetch(url, session):
-    async with SEMAPHORE:
+async def fetch(url, session, semaphore):
+    async with semaphore:
         for attempt in range(RETRY_LIMIT):
             try:
                 async with session.get(url) as response:
@@ -41,10 +37,10 @@ async def fetch(url, session):
                     print(f"Failed to fetch {url} after {RETRY_LIMIT} attempts: {e}")
                     return None
 
-async def scrape_headcount(url, session):
+async def scrape_headcount(url, session, semaphore):
     print(f"Fetching {url}")
     start_time = time.time()
-    html_content = await fetch(url, session)
+    html_content = await fetch(url, session, semaphore)
     
     if html_content:
         try:
@@ -69,13 +65,10 @@ async def main():
     ssl_context.verify_mode = ssl.CERT_NONE
     
     timeout = ClientTimeout(total=60)
+    semaphore = asyncio.Semaphore(10)  # Limit concurrency here
+
     async with aiohttp.ClientSession(headers=HEADERS, connector=aiohttp.TCPConnector(ssl=ssl_context), timeout=timeout) as session:
-        tasks = []
-        for url in company_urls:
-            tasks.append(scrape_headcount(url, session))
-            # Throttle requests: adjust delay as needed
-            await asyncio.sleep(0.1)  # Adjust sleep to avoid overwhelming the server
-        
+        tasks = [scrape_headcount(url, session, semaphore) for url in company_urls]
         results = await asyncio.gather(*tasks)
         print(results)
 
